@@ -15,18 +15,21 @@
       --border:   #e3e6eb;
       --text:     #111318;
       --muted:    #8a8f9e;
-      --green:       #16a34a;
-      --green-bg:    #f0fdf4;
-      --green-bd:    #bbf7d0;
-      --red:         #dc2626;
-      --red-bg:      #fef2f2;
-      --red-bd:      #fecaca;
-      --indigo:      #6366f1;
-      --indigo-bg:   #eef2ff;
-      --indigo-bd:   #c7d2fe;
-      --match:       #f43f8e;
-      --match-bg:    #fff0f6;
-      --match-bd:    #fbc8df;
+      --green:     #16a34a;
+      --green-bg:  #f0fdf4;
+      --green-bd:  #bbf7d0;
+      --red:       #dc2626;
+      --red-bg:    #fef2f2;
+      --red-bd:    #fecaca;
+      --indigo:    #6366f1;
+      --indigo-bg: #eef2ff;
+      --indigo-bd: #c7d2fe;
+      --amber:     #d97706;
+      --amber-bg:  #fffbeb;
+      --amber-bd:  #fde68a;
+      --match:     #f43f8e;
+      --match-bg:  #fff0f6;
+      --match-bd:  #fbc8df;
       --r:    14px;
       --rsm:  10px;
       --pill: 999px;
@@ -67,7 +70,7 @@
       -webkit-tap-highlight-color: transparent; flex-shrink: 0;
     }
 
-    /* ── MAIN GRID ── */
+    /* ── LAYOUT ── */
     .main {
       padding: 14px 12px;
       display: flex; flex-direction: column; gap: 14px;
@@ -161,7 +164,6 @@
     }
     .uname { font-size: .9rem; font-weight: 700; flex: 1; min-width: 0; }
 
-    /* BIG TAP BUTTONS */
     .tapbtns { display: flex; gap: 6px; flex-shrink: 0; }
     .tbtn {
       font-family: 'Inter', sans-serif;
@@ -179,15 +181,23 @@
     .tbtn.no:hover   { background: var(--red-bg);   border-color: var(--red-bd);   color: var(--red); }
     .tbtn.no.active  { background: var(--red);      border-color: var(--red);      color: #fff; box-shadow: 0 2px 8px rgba(220,38,38,.25); }
 
-    /* time chips */
-    .trow {
+    /* ── USER DETAIL ROWS (Zeit + Dauer) ── */
+    .udetail {
       padding: 0 10px 10px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+
+    .detail-row {
       display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
     }
-    .trow-lbl {
+
+    .detail-lbl {
       font-size: .62rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .08em; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .08em;
+      color: var(--muted); min-width: 42px;
     }
+
+    /* time chips */
     .tc {
       font-family: 'Inter', sans-serif;
       font-size: .74rem; font-weight: 600;
@@ -199,6 +209,18 @@
     .tc:hover { border-color: var(--indigo-bd); color: var(--indigo); background: var(--indigo-bg); }
     .tc.sel   { background: var(--indigo); border-color: var(--indigo); color: #fff; }
     .tc.msel  { background: var(--match);  border-color: var(--match);  color: #fff; box-shadow: 0 0 0 3px rgba(244,63,142,.18); }
+
+    /* duration chips */
+    .dc {
+      font-family: 'Inter', sans-serif;
+      font-size: .74rem; font-weight: 600;
+      padding: 6px 11px; border-radius: var(--pill);
+      border: 1px solid var(--border); background: var(--surface); color: var(--muted);
+      cursor: pointer; transition: all .13s; min-height: 34px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .dc:hover { border-color: var(--amber-bd); color: var(--amber); background: var(--amber-bg); }
+    .dc.sel   { background: var(--amber); border-color: var(--amber); color: #fff; }
 
     /* note */
     .note-wrap {
@@ -261,6 +283,7 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 1rem; cursor: pointer; color: var(--muted);
     }
+    .drw-close:hover { background: var(--border); }
     .drw-body { flex: 1; overflow-y: auto; padding: 18px; display: flex; flex-direction: column; gap: 22px; }
 
     .dsec { display: flex; flex-direction: column; gap: 10px; }
@@ -282,7 +305,6 @@
       cursor: pointer;
     }
     .del-btn:hover { background: var(--red); color: #fff; }
-
     .add-row { display: flex; gap: 8px; }
     .add-inp {
       flex: 1; font-family: 'Inter', sans-serif; font-size: .88rem; font-weight: 500;
@@ -297,7 +319,6 @@
       padding: 0 18px; min-height: 48px; border-radius: var(--rsm);
       border: none; background: var(--indigo); color: #fff; cursor: pointer; white-space: nowrap;
     }
-
     .bset { display: flex; flex-direction: column; gap: 8px; }
     .bset-lbl { font-size: .84rem; font-weight: 700; display: flex; align-items: center; gap: 5px; }
     .bset-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
@@ -318,7 +339,6 @@
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="hdr">
   <div class="brand">
     <div class="brand-icon">🍽</div>
@@ -330,7 +350,6 @@
   <button class="gear-btn" onclick="openSettings()">⚙️</button>
 </header>
 
-<!-- MAIN — static structure, JS fills content -->
 <main class="main">
 
   <!-- FRÜHSTÜCK -->
@@ -374,7 +393,6 @@
 
 </main>
 
-<!-- FOOTER -->
 <footer class="foot">
   <div class="legend">
     <div class="leg"><span class="ldot g"></span><span id="sum-g">0 dabei</span></div>
@@ -384,7 +402,6 @@
   <button class="reset-btn" onclick="resetDay()">Tag zurücksetzen</button>
 </footer>
 
-<!-- SETTINGS DRAWER -->
 <div class="overlay" id="overlay" onclick="closeSettings()"></div>
 <aside class="drawer" id="drawer">
   <div class="drw-hdr">
@@ -397,12 +414,9 @@
 <div class="cfwrap" id="cfwrap"></div>
 
 <script>
-/* ══════════════════════════════════════════
-   DEFAULTS
-══════════════════════════════════════════ */
-const SK = 'lb7';
-
+const SK = 'lb8';
 const BREAKS = ['breakfast','lunch'];
+const DURATIONS = [15,30,45,60];
 
 let cfg = {
   users: [
@@ -410,17 +424,15 @@ let cfg = {
     { id:'lisa',   name:'Lisa',   color:'#f59e0b' },
   ],
   breaks: {
-    breakfast: { sh:9,  sm:0, eh:10, em:30, def:'09:30' },
-    lunch:     { sh:12, sm:0, eh:14, em:0,  def:'12:30' },
+    breakfast: { sh:9,  sm:0, eh:10, em:30, def:'09:30', defDur:15 },
+    lunch:     { sh:12, sm:0, eh:14, em:0,  def:'12:30', defDur:45 },
   },
 };
 
 let day = {};
 let prevMatch = { breakfast:false, lunch:false };
 
-/* ══════════════════════════════════════════
-   HELPERS
-══════════════════════════════════════════ */
+/* ── Helpers ── */
 function slots(sh,sm,eh,em){
   const out=[]; let h=sh,m=sm;
   while(h<eh||(h===eh&&m<=em)){
@@ -432,9 +444,7 @@ function slots(sh,sm,eh,em){
 function p2(n){ return String(n).padStart(2,'0'); }
 function today(){ return new Date().toISOString().slice(0,10); }
 
-/* ══════════════════════════════════════════
-   STATE
-══════════════════════════════════════════ */
+/* ── State ── */
 function loadAll(){
   try{ const r=localStorage.getItem(SK+'_cfg'); if(r) cfg=JSON.parse(r); }catch(e){}
   try{
@@ -445,12 +455,13 @@ function loadAll(){
 }
 
 function freshDay(){
-  day={ date:today(), st:{}, ti:{}, note:'' };
+  day={ date:today(), st:{}, ti:{}, dur:{}, note:'' };
   BREAKS.forEach(b=>{
-    day.st[b]={}; day.ti[b]={};
+    day.st[b]={}; day.ti[b]={}; day.dur[b]={};
     cfg.users.forEach(u=>{
-      day.st[b][u.id]=null;
-      day.ti[b][u.id]=cfg.breaks[b].def;
+      day.st[b][u.id]  = null;
+      day.ti[b][u.id]  = cfg.breaks[b].def;
+      day.dur[b][u.id] = cfg.breaks[b].defDur;
     });
   });
   saveDay();
@@ -458,11 +469,13 @@ function freshDay(){
 
 function reconcile(){
   BREAKS.forEach(b=>{
-    if(!day.st[b]) day.st[b]={};
-    if(!day.ti[b]) day.ti[b]={};
+    if(!day.st[b])  day.st[b]={};
+    if(!day.ti[b])  day.ti[b]={};
+    if(!day.dur[b]) day.dur[b]={};
     cfg.users.forEach(u=>{
       if(day.st[b][u.id]===undefined) day.st[b][u.id]=null;
-      if(!day.ti[b][u.id]) day.ti[b][u.id]=cfg.breaks[b].def;
+      if(!day.ti[b][u.id])  day.ti[b][u.id]=cfg.breaks[b].def;
+      if(!day.dur[b][u.id]) day.dur[b][u.id]=cfg.breaks[b].defDur;
     });
   });
 }
@@ -470,9 +483,7 @@ function reconcile(){
 function saveCfg(){ try{ localStorage.setItem(SK+'_cfg',JSON.stringify(cfg)); }catch(e){} }
 function saveDay(){ try{ localStorage.setItem(SK+'_day',JSON.stringify(day)); }catch(e){} }
 
-/* ══════════════════════════════════════════
-   ACTIONS
-══════════════════════════════════════════ */
+/* ── Actions ── */
 function setStatus(brk,uid,val){
   day.st[brk][uid] = day.st[brk][uid]===val ? null : val;
   saveDay(); renderSection(brk); renderSummary();
@@ -480,6 +491,11 @@ function setStatus(brk,uid,val){
 
 function setTime(brk,uid,t){
   day.ti[brk][uid] = day.ti[brk][uid]===t ? cfg.breaks[brk].def : t;
+  saveDay(); renderSection(brk);
+}
+
+function setDur(brk,uid,d){
+  day.dur[brk][uid] = day.dur[brk][uid]===d ? cfg.breaks[brk].defDur : d;
   saveDay(); renderSection(brk);
 }
 
@@ -494,9 +510,7 @@ function resetDay(){
   freshDay(); renderAll();
 }
 
-/* ══════════════════════════════════════════
-   MATCH
-══════════════════════════════════════════ */
+/* ── Match ── */
 function matchInfo(brk){
   const att = cfg.users.filter(u=>day.st[brk][u.id]===true);
   if(att.length<2) return {ok:false,time:null,att};
@@ -513,32 +527,27 @@ function confetti(cardEl){
     const el=document.createElement('div');
     el.className='cf';
     const sz=6+Math.random()*7;
-    el.style.cssText=`background:${cols[i%cols.length]};left:${rect.left+Math.random()*rect.width}px;top:${rect.top+Math.random()*rect.height*.5}px;width:${sz}px;height:${sz}px;border-radius:${Math.random()>.5?'50%':'3px'};animation-delay:${Math.random()*.5}s;animation-duration:${1.2+Math.random()*.8}s`;
+    el.style.cssText='background:'+cols[i%cols.length]+';left:'+(rect.left+Math.random()*rect.width)+'px;top:'+(rect.top+Math.random()*rect.height*.5)+'px;width:'+sz+'px;height:'+sz+'px;border-radius:'+(Math.random()>.5?'50%':'3px')+';animation-delay:'+(Math.random()*.5)+'s;animation-duration:'+(1.2+Math.random()*.8)+'s';
     wrap.appendChild(el);
   }
-  setTimeout(()=>{wrap.innerHTML='';},2600);
+  setTimeout(function(){wrap.innerHTML='';},2600);
 }
 
-/* ══════════════════════════════════════════
-   RENDER SECTION
-══════════════════════════════════════════ */
+/* ── Render Section ── */
 function renderSection(brk){
-  const bc  = cfg.breaks[brk];
-  const sl  = slots(bc.sh, bc.sm, bc.eh, bc.em);
-  const mi  = matchInfo(brk);
-  const was = prevMatch[brk];
+  var bc  = cfg.breaks[brk];
+  var sl  = slots(bc.sh, bc.sm, bc.eh, bc.em);
+  var mi  = matchInfo(brk);
+  var was = prevMatch[brk];
 
-  /* card glow */
   document.getElementById('sc-'+brk).className = 'sc'+(mi.ok?' matched':'');
 
-  /* count pill */
-  const pill = document.getElementById('pill-'+brk);
+  var pill = document.getElementById('pill-'+brk);
   pill.textContent = mi.att.length+' dabei';
   pill.className   = 'cpill'+(mi.att.length>0?' on':'');
 
-  /* match banner */
-  const banner = document.getElementById('banner-'+brk);
-  const mtxt   = document.getElementById('mtxt-'+brk);
+  var banner = document.getElementById('banner-'+brk);
+  var mtxt   = document.getElementById('mtxt-'+brk);
   if(mi.ok){
     banner.classList.add('show');
     mtxt.textContent = 'Alle um '+mi.time+' – perfekter Match! 🎉';
@@ -548,35 +557,38 @@ function renderSection(brk){
   }
   prevMatch[brk] = mi.ok;
 
-  /* tendency */
-  const tend = document.getElementById('tend-'+brk);
+  var tend = document.getElementById('tend-'+brk);
   if(mi.ok){
     tend.textContent=''; tend.className='tend';
   } else if(mi.att.length===0){
     tend.textContent='Noch keine Zeitangabe'; tend.className='tend';
   } else {
-    const freq={};
-    mi.att.forEach(u=>{ const t=day.ti[brk][u.id]; freq[t]=(freq[t]||0)+1; });
-    const top=Object.entries(freq).sort((a,b)=>b[1]-a[1])[0];
+    var freq={};
+    mi.att.forEach(function(u){ var t=day.ti[brk][u.id]; freq[t]=(freq[t]||0)+1; });
+    var top=Object.entries(freq).sort(function(a,b){return b[1]-a[1];})[0];
     tend.textContent='→ Tendenz: '+top[0]+' Uhr'; tend.className='tend on';
   }
 
-  /* users */
-  const usersEl = document.getElementById('users-'+brk);
+  var usersEl = document.getElementById('users-'+brk);
   usersEl.innerHTML = '';
 
   cfg.users.forEach(function(u){
-    const s  = day.st[brk][u.id];
-    const ut = day.ti[brk][u.id] || bc.def;
+    var s   = day.st[brk][u.id];
+    var ut  = day.ti[brk][u.id]  || bc.def;
+    var ud  = day.dur[brk][u.id] || bc.defDur;
 
-    const chips = sl.map(function(t){
-      const isSel = ut===t;
-      const isMat = isSel && mi.ok && s===true;
+    var timeChips = sl.map(function(t){
+      var isSel = ut===t;
+      var isMat = isSel && mi.ok && s===true;
       return '<button class="tc'+(isSel?' sel':'')+(isMat?' msel':'')+'" onclick="setTime(\''+brk+'\',\''+u.id+'\',\''+t+'\')">'+t+'</button>';
     }).join('');
 
-    const lbl = brk==='breakfast' ? 'Frühstück' : 'Mittag';
-    const div = document.createElement('div');
+    var durChips = DURATIONS.map(function(d){
+      var isSel = ud===d;
+      return '<button class="dc'+(isSel?' sel':'')+'" onclick="setDur(\''+brk+'\',\''+u.id+'\','+d+')">'+d+' min</button>';
+    }).join('');
+
+    var div = document.createElement('div');
     div.className = 'ublock'+(s===true?' is-in':s===false?' is-out':'');
     div.innerHTML =
       '<div class="umain">'+
@@ -588,16 +600,22 @@ function renderSection(brk){
           '<button class="tbtn no'+(s===false?' active':'')+'" onclick="setStatus(\''+brk+'\',\''+u.id+'\',false)">✕ Nein</button>'+
         '</div>'+
       '</div>'+
-      '<div class="trow">'+
-        '<span class="trow-lbl">Zeit</span>'+
-        chips+
+      '<div class="udetail">'+
+        '<div class="detail-row">'+
+          '<span class="detail-lbl">Zeit</span>'+
+          timeChips+
+        '</div>'+
+        '<div class="detail-row">'+
+          '<span class="detail-lbl">Dauer</span>'+
+          durChips+
+        '</div>'+
       '</div>';
     usersEl.appendChild(div);
   });
 }
 
 function renderSummary(){
-  let g=0,r=0,n=0;
+  var g=0,r=0,n=0;
   BREAKS.forEach(function(b){
     cfg.users.forEach(function(u){
       var s=day.st[b]?.[u.id];
@@ -616,9 +634,7 @@ function renderAll(){
   if(ne) ne.value=day.note||'';
 }
 
-/* ══════════════════════════════════════════
-   SETTINGS DRAWER
-══════════════════════════════════════════ */
+/* ── Settings Drawer ── */
 function openSettings(){
   fillDrawer();
   document.getElementById('overlay').classList.add('open');
@@ -637,11 +653,10 @@ function fillDrawer(){
   var body=document.getElementById('drw-body');
   body.innerHTML='';
 
-  /* ── Users ── */
+  /* Users */
   var usec=document.createElement('div');
   usec.className='dsec';
   usec.innerHTML='<div class="dsec-title">👤 Personen</div>';
-
   var ulist=document.createElement('div');
   ulist.style.cssText='display:flex;flex-direction:column;gap:8px';
 
@@ -653,7 +668,7 @@ function fillDrawer(){
       row.innerHTML=
         '<div class="av" style="background:'+u.color+';width:32px;height:32px;border-radius:8px;font-size:.8rem">'+u.name[0].toUpperCase()+'</div>'+
         '<span class="suname">'+u.name+'</span>'+
-        '<button class="del-btn" data-id="'+u.id+'">Entfernen</button>';
+        '<button class="del-btn">Entfernen</button>';
       row.querySelector('.del-btn').addEventListener('click',function(){
         if(cfg.users.length<=1){alert('Mindestens eine Person muss bleiben.');return;}
         cfg.users=cfg.users.filter(function(x){return x.id!==u.id;});
@@ -667,7 +682,6 @@ function fillDrawer(){
   var addRow=document.createElement('div');
   addRow.className='add-row';
   addRow.innerHTML='<input class="add-inp" id="nusr" type="text" placeholder="Name eingeben …" maxlength="30"/><button class="add-btn">+ Hinzufügen</button>';
-
   var inp=addRow.querySelector('#nusr');
   var palette=['#6366f1','#f59e0b','#16a34a','#f43f8e','#06b6d4','#a855f7','#ef4444','#0ea5e9'];
   function doAdd(){
@@ -678,25 +692,25 @@ function fillDrawer(){
   }
   addRow.querySelector('.add-btn').addEventListener('click',doAdd);
   inp.addEventListener('keydown',function(e){if(e.key==='Enter')doAdd();});
-
   usec.appendChild(ulist);
   usec.appendChild(addRow);
   body.appendChild(usec);
 
-  /* ── Break times ── */
+  /* Break times */
   var bsec=document.createElement('div');
   bsec.className='dsec';
-  bsec.innerHTML='<div class="dsec-title">⏰ Pausenzeiten (15 min Schritte)</div>';
-
+  bsec.innerHTML='<div class="dsec-title">⏰ Pausenzeiten & Dauer</div>';
   var breakLabels={breakfast:'🥐 Frühstück',lunch:'🍜 Mittagessen'};
+
   BREAKS.forEach(function(brk){
     var bc=cfg.breaks[brk];
-    var hours=[];for(var i=7;i<=20;i++)hours.push(i);
+    var hours=[]; for(var i=7;i<=20;i++) hours.push(i);
     var mins=[0,15,30,45];
 
-    function hOpts(v){return hours.map(function(h){return '<option value="'+h+'"'+(h===v?' selected':'')+'>'+p2(h)+'</option>';}).join('');}
-    function mOpts(v){return mins.map(function(m){return '<option value="'+m+'"'+(m===v?' selected':'')+'>'+p2(m)+'</option>';}).join('');}
-    function dOpts(sl,dv){return sl.map(function(t){return '<option value="'+t+'"'+(t===dv?' selected':'')+'>'+t+'</option>';}).join('');}
+    function hOpts(v){ return hours.map(function(h){ return '<option value="'+h+'"'+(h===v?' selected':'')+'>'+p2(h)+'</option>'; }).join(''); }
+    function mOpts(v){ return mins.map(function(m){ return '<option value="'+m+'"'+(m===v?' selected':'')+'>'+p2(m)+'</option>'; }).join(''); }
+    function dOpts(sl,dv){ return sl.map(function(t){ return '<option value="'+t+'"'+(t===dv?' selected':'')+'>'+t+'</option>'; }).join(''); }
+    function durOpts(dv){ return DURATIONS.map(function(d){ return '<option value="'+d+'"'+(d===dv?' selected':'')+'>'+d+' min</option>'; }).join(''); }
 
     var curSl=slots(bc.sh,bc.sm,bc.eh,bc.em);
     var wrap=document.createElement('div');
@@ -713,12 +727,15 @@ function fillDrawer(){
         '<select class="tsel" id="'+brk+'em">'+mOpts(bc.em)+'</select>'+
       '</div>'+
       '<div class="bset-row">'+
-        '<span class="bset-sub">Standard:</span>'+
+        '<span class="bset-sub">Standard-Zeit:</span>'+
         '<select class="tsel" id="'+brk+'def">'+dOpts(curSl,bc.def)+'</select>'+
+      '</div>'+
+      '<div class="bset-row">'+
+        '<span class="bset-sub">Standard-Dauer:</span>'+
+        '<select class="tsel" id="'+brk+'defdur">'+durOpts(bc.defDur)+'</select>'+
       '</div>';
     bsec.appendChild(wrap);
 
-    // wire after insertion
     setTimeout(function(){
       function refresh(){
         cfg.breaks[brk].sh=+document.getElementById(brk+'sh').value;
@@ -734,16 +751,16 @@ function fillDrawer(){
         if(el) el.addEventListener('change',refresh);
       });
       var de=document.getElementById(brk+'def');
-      if(de) de.addEventListener('change',function(){cfg.breaks[brk].def=de.value;saveCfg();});
+      if(de) de.addEventListener('change',function(){ cfg.breaks[brk].def=de.value; saveCfg(); });
+      var dd=document.getElementById(brk+'defdur');
+      if(dd) dd.addEventListener('change',function(){ cfg.breaks[brk].defDur=+dd.value; saveCfg(); });
     },50);
   });
 
   body.appendChild(bsec);
 }
 
-/* ══════════════════════════════════════════
-   BOOT
-══════════════════════════════════════════ */
+/* ── Boot ── */
 document.getElementById('hdr-date').textContent =
   new Date().toLocaleDateString('de-DE',{weekday:'long',day:'numeric',month:'long'});
 
